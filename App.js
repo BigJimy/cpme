@@ -2,7 +2,8 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import Header from './components/Header';
-import ListItems from './components/ListItems';
+import ListActus from './components/ListActus';
+import ListEvent from './components/ListEvent';
 import Parameters from './components/Parameters';
 import { Feather } from '@expo/vector-icons';
 
@@ -13,7 +14,7 @@ class HomeScreen extends React.Component {
       <ScrollView>
         <View style={styles.mainContainer}>
            <Header />
-           <ListItems />
+           <ListActus />
         </View>
      </ScrollView>
     );
@@ -26,7 +27,7 @@ class NewsScreen extends React.Component {
       <ScrollView>
         <View style={styles.mainContainer}>
            <Header />
-           <ListItems />
+           <ListActus />
         </View>
      </ScrollView>
     );
@@ -36,10 +37,13 @@ class NewsScreen extends React.Component {
 class EventsScreen extends React.Component {
   render() {
     return (
-        <View style={styles.mainContainer}>
+			<ScrollView>
+				<View style={styles.mainContainer}>
            <Header />
-           <ListItems />
+           <ListEvent />
         </View>
+			</ScrollView>
+        
     );
   }
 }
