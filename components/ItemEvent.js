@@ -1,57 +1,112 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
+import { Feather } from '@expo/vector-icons';
 
-const ItemEvent = (props) => {
+export default class ItemEvent extends React.Component {
+	state = {
+		modalVisible: false,
+	};
+	
+	setModalVisible(visible) {
+		this.setState({modalVisible: visible});
+	}
+	
+	render() {
     return (
         <View style={styles.itemContainer} >
-           <View style={styles.categoryLabel} >
-               <Text style={styles.categoryName} >{props.type}</Text>
+					<Modal
+						animationType="slide"
+						transparent={false}
+						visible={this.state.modalVisible}
+						onRequestClose={() => {
+							console.log('Fermeture du Modal');
+						}}
+						>
+						<ScrollView>
+							<View style={{margin: 5, padding: 10}}>
+								<View>
+									<Text style={styles.modalTitleContent} >{this.props.title}</Text>
+									<Feather 
+										style={styles.iconDate}
+										name="clock" size={12} 
+										color="#294147"
+									/> 
+									<Text style={styles.modalDateContent} >
+										{this.props.date}
+									</Text>
+									<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+
+
+									<TouchableHighlight
+										style={styles.closeButtonStyle}
+										onPress={() => {
+											this.setModalVisible(!this.state.modalVisible);
+										}}>
+										<Feather 
+											style={styles.icon}
+											name="x-circle" size={32} 
+											color="#294147"
+										/> 
+									</TouchableHighlight>								
+
+									<View style={styles.buttonShowMoreContainer}>
+											<TouchableHighlight
+													style={styles.buttonStyle}
+													onPress={() => {
+														console.log('Ca marche')
+													}}>
+													<Text style={styles.buttonText}>JE PARTICIPE</Text>
+											</TouchableHighlight>
+									</View> 
+								</View>
+							</View>
+						</ScrollView>
+					</Modal>
+          
+           <View style={styles.categoryContainer} >
+               <Text style={styles.categoryName} >{this.props.type}</Text>
            </View>
            <View style={styles.item} >
-               <Text style={styles.dateContent} >{props.date}</Text>
-               <Text style={styles.titleContent} >{props.title}</Text>
-               <HTML html={props.content} imageMaxWidth={Dimensions.get('window').width} />
-               <TouchableOpacity 
+               <Text style={styles.dateContent} >{this.props.date}</Text>
+               <Text style={styles.titleContent} >{this.props.title}</Text>
+               <HTML html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+            </View>
+            <View style={styles.buttonShowMoreContainer}>
+            	  <TouchableOpacity 
                     style={styles.buttonStyle}
-                    onPress={() => { return false}}>
+                    onPress={() => {this.setModalVisible(true)}}>
                     <Text style={styles.buttonText}>Voir +</Text>
                 </TouchableOpacity>
             </View> 
         </View>
     );
-  }
-
-
-export default ItemEvent;
+	}
+}
 
 const styles = StyleSheet.create({
   itemContainer: {
     marginLeft: 30,
     marginRight: 30,
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+		paddingBottom: 2,
   },
   item: {
     marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 20,
     padding: 10,
     paddingTop: 20,
     paddingBottom: 20,
     backgroundColor: '#fff',
     overflow: 'visible',
   },
-  categoryName: {
-    textAlign: 'center', 
-    color: 'white',
-    fontSize: 18,
-  },
   textContent: {
-    fontSize: 12,
-    fontFamily: 'Roboto',
+		margin: 10,
   },
   titleContent: {
     fontWeight: 'bold',
+		padding: 5,
   },
   dateContent: {
     textAlign: 'center',
@@ -59,27 +114,70 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontStyle: 'italic',
   },
-  categoryLabel: {
-      zIndex: 1,
-      position: 'absolute',
-      width: 150,
-      padding: 3,
-      backgroundColor: '#b31d27',
-      left: '28%',
+	modalTitleContent: {
+    fontSize: 18,
+    fontFamily: 'Roboto',
+    textAlign: 'center',
+    fontWeight: 'bold',
+		padding: 5,
   },
+  modalDateContent: {
+    fontSize: 12,
+    fontFamily: 'Roboto',
+    fontStyle: 'italic',
+  },
+  categoryContainer: {
+		zIndex: 1,
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		padding: 3,
+		alignItems: 'center',
+  },
+  categoryName: {
+    textAlign: 'center', 
+    color: 'white',
+    fontSize: 18,
+    backgroundColor: '#b31d27',
+		padding: 5,
+		paddingLeft: 20,
+		paddingRight: 20,
+  },
+	buttonShowMoreContainer: {
+		zIndex: 1,
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		padding: 3,
+		alignItems: 'center',
+		justifyContent: 'flex-end',	
+	},
   buttonStyle: {
+    backgroundColor: '#1B5567',
+		margin: 5,
+  },
+	closeButtonStyle: {
       zIndex: 1,
       position: 'absolute',
-      width: 150,
-      bottom: 0,
+      top: 10,
+			right: 10,
       padding: 3,
-      backgroundColor: '#07A9B4',
-      left: '40%',
-      width: 80,
-      backgroundColor: '#1B5567',
   },
   buttonText: {
-      color: 'white',
-      textAlign: 'center'
-  }
+		color: 'white',
+		textAlign: 'center',
+		padding: 5,
+		paddingLeft: 10,
+		paddingRight: 10,
+  },
+	icon: {
+			fontWeight: 'bold'
+	},
+	iconDate: {
+			marginRight: 10,
+	}
 });
