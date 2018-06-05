@@ -33,7 +33,7 @@ export default class ItemActus extends React.Component {
 										color="#294147"
 									/> 
 									<Text style={styles.modalDateContent} >
-										{this.props.date}
+										Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
 									</Text>
 									<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
 
@@ -57,7 +57,7 @@ export default class ItemActus extends React.Component {
                <Text style={styles.categoryName} >{this.props.type}</Text>
            </View>
            <View style={styles.item} >
-               <Text style={styles.dateContent} >{this.props.date}</Text>
+               <Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
                <Text style={styles.titleContent} >{this.props.title}</Text>
                <HTML html={this.props.extrait}/>
             </View> 

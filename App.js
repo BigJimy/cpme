@@ -21,19 +21,6 @@ class HomeScreen extends React.Component {
   }
 }
 
-class NewsScreen extends React.Component {
-  render() {
-    return (
-      <ScrollView>
-        <View style={styles.mainContainer}>
-           <Header />
-           <ListActus />
-        </View>
-     </ScrollView>
-    );
-  }
-}
-
 class EventsScreen extends React.Component {
   render() {
     return (
@@ -70,15 +57,7 @@ export default createBottomTabNavigator({
           <Feather style={styles.icon} name="home" size={32} color="white" />
           )
       })
-  },    
-  Actualités: { 
-      screen: NewsScreen,
-      navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-          <Feather style={styles.icon} name="message-circle" size={32} color="white" />
-          )
-      })
-  },  
+  },     
   Evénements: { 
       screen: EventsScreen,
       navigationOptions: () => ({
