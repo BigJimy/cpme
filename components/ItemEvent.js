@@ -19,9 +19,7 @@ export default class ItemEvent extends React.Component {
 						animationType="slide"
 						transparent={false}
 						visible={this.state.modalVisible}
-						onRequestClose={() => {
-							console.log('Fermeture du Modal');
-						}}
+						onRequestClose={() => {this.setModalVisible(false)}}
 						>
 						<ScrollView>
 							<View style={{margin: 5, padding: 10}}>
@@ -51,11 +49,17 @@ export default class ItemEvent extends React.Component {
 									</TouchableOpacity>								
 								</View>
 								<View style={styles.buttonParticipeContainer}>
-										<Button
+										<TouchableOpacity
 												style={styles.buttonParticipeStyle}
-												title="JE PARTICIPE"
-												onPress={() => {console.log("Ca marche")}}>
-										</Button>
+												onPress={() => {
+											this.setModalVisible(!this.state.modalVisible);
+											}}>
+												<Text 
+													style={styles.buttonParticipeText}
+												>
+													JE PARTICIPE
+												</Text>
+										</TouchableOpacity>
 								</View> 
 							</View>
 						</ScrollView>
@@ -172,8 +176,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end',	
 	},
   buttonParticipeStyle: {
-    backgroundColor: '#1B5567',
+    backgroundColor: '#b31d27',
 		margin: 5,
+		padding: 3,
+  },  
+	buttonParticipeText: {
+    margin: 3,
+		color: 'white'
   },
 	closeButtonStyle: {
       zIndex: 1,

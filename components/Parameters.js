@@ -47,6 +47,7 @@ export default class Parameters extends React.Component {
 			phoneNumber: this.state.phoneNumber
 			}
 		AsyncStorage.setItem('user', JSON.stringify(obj));
+		alert('Coordonnées sauvegardées')
 	}
 		
 	displayData = async () => {

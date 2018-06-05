@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons';
 
 export default class ItemActus extends React.Component {
 	state = {
-		modalVisible: false,
+		modalVisible: false
 	};
 	
 	setModalVisible(visible) {
@@ -19,9 +19,7 @@ export default class ItemActus extends React.Component {
 						animationType="slide"
 						transparent={false}
 						visible={this.state.modalVisible}
-						onRequestClose={() => {
-							alert('Fermeture du Modal');
-						}}
+						onRequestClose={() => {this.setModalVisible(false)}}
 						>
 						<ScrollView>
 							<View style={{margin: 5, padding: 10}}>

@@ -17,9 +17,7 @@ export default class Header extends React.Component {
 						animationType="slide"
 						transparent={false}
 						visible={this.state.modalVisible}
-						onRequestClose={() => {
-							console.log('Fermeture du Modal');
-						}}
+						onRequestClose={() => {this.setModalVisible(false)}}
 						>
 						<ScrollView>
 							<View style={{margin: 5, padding: 10}}>
@@ -60,10 +58,10 @@ export default class Header extends React.Component {
 							</View>
 						</ScrollView>
 					</Modal>
-           
+
             <Image
               style={{width: 200, height: 50}}
-              source={{uri: 'https://www.cpme85.fr/wp-content/uploads/sites/4/2018/03/logo-85.png'}}
+              source={require('./logo.png')}
               resizeMode="center"
             />
             <TouchableHighlight onPress={() => {this.setModalVisible(true)}}>
@@ -109,11 +107,10 @@ const styles = StyleSheet.create({
 		paddingTop: 30,
 	},
   headerModalTitle: {
-    textAlign: "center",
     color:"#1B5567",
-    padding: "1%",
-    paddingBottom: "1%",
-		paddingTop: 10,
-		fontWeight: 'bold'
+    paddingBottom: "2%",
+		paddingTop: 15,
+		fontWeight: 'bold',
+		fontSize: 18
   }
 });
