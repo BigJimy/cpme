@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
 
@@ -38,7 +38,7 @@ export default class ItemEvent extends React.Component {
 									<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
 
 
-									<TouchableHighlight
+									<TouchableOpacity
 										style={styles.closeButtonStyle}
 										onPress={() => {
 											this.setModalVisible(!this.state.modalVisible);
@@ -48,18 +48,15 @@ export default class ItemEvent extends React.Component {
 											name="x-circle" size={32} 
 											color="#294147"
 										/> 
-									</TouchableHighlight>								
-
-									<View style={styles.buttonShowMoreContainer}>
-											<TouchableHighlight
-													style={styles.buttonStyle}
-													onPress={() => {
-														console.log('Ca marche')
-													}}>
-													<Text style={styles.buttonText}>JE PARTICIPE</Text>
-											</TouchableHighlight>
-									</View> 
+									</TouchableOpacity>								
 								</View>
+								<View style={styles.buttonParticipeContainer}>
+										<Button
+												style={styles.buttonParticipeStyle}
+												title="JE PARTICIPE"
+												onPress={() => {console.log("Ca marche")}}>
+										</Button>
+								</View> 
 							</View>
 						</ScrollView>
 					</Modal>
@@ -157,6 +154,15 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end',	
 	},
   buttonStyle: {
+    backgroundColor: '#1B5567',
+		margin: 5,
+  },	
+	buttonParticipeContainer: {
+		padding: 3,
+		alignItems: 'center',
+		justifyContent: 'flex-end',	
+	},
+  buttonParticipeStyle: {
     backgroundColor: '#1B5567',
 		margin: 5,
   },

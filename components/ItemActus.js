@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
 
@@ -23,33 +23,34 @@ export default class ItemActus extends React.Component {
 							alert('Fermeture du Modal');
 						}}
 						>
-						<View style={{margin: 5, padding: 10}}>
-							<View>
-								<Text style={styles.modalTitleContent} >{this.props.title}</Text>
-             		<Feather 
-									style={styles.iconDate}
-									name="clock" size={12} 
-									color="#294147"
-								/> 
-              	<Text style={styles.modalDateContent} >
-              		{this.props.date}
-              	</Text>
-               	<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
-               	
-                
-								<TouchableHighlight
-									style={styles.closeButtonStyle}
-									onPress={() => {
-										this.setModalVisible(!this.state.modalVisible);
-									}}>
+						<ScrollView>
+							<View style={{margin: 5, padding: 10}}>
+								<View>
+									<Text style={styles.modalTitleContent} >{this.props.title}</Text>
 									<Feather 
-										style={styles.icon}
-										name="x-circle" size={32} 
+										style={styles.iconDate}
+										name="clock" size={12} 
 										color="#294147"
 									/> 
-								</TouchableHighlight>
+									<Text style={styles.modalDateContent} >
+										{this.props.date}
+									</Text>
+									<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+
+									<TouchableHighlight
+										style={styles.closeButtonStyle}
+										onPress={() => {
+											this.setModalVisible(false);
+										}}>
+										<Feather 
+											style={styles.icon}
+											name="x-circle" size={32} 
+											color="#294147"
+										/> 
+									</TouchableHighlight>
+								</View>
 							</View>
-						</View>
+						</ScrollView>
 					</Modal>
           
            <View style={styles.categoryContainer} >
