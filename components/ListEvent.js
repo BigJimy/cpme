@@ -17,7 +17,7 @@ export default class ListEvent extends React.Component {
   componentWillMount () {
     axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/ee/v4.8.29/events`)
       .then((response) => {
-          this.setState({ post: response.data, type: "Event"})
+          this.setState({ post: response.data, type: "Evénement"})
         })
   }
 
@@ -26,11 +26,12 @@ export default class ListEvent extends React.Component {
   render() {
         let affichage = this.state.post.map((post, index) => {
           return (
-            <ItemEvent title="title"
+            <ItemEvent title={post.EVT_name}
                 content={post.EVT_desc.rendered}
                 date={post.EVT_created}
+                image={post.featured_image_url}
                 type={this.state.type}
-                key={index}
+                key={post.EVT_ID}
             /> );
         });
 

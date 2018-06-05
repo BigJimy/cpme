@@ -30,9 +30,10 @@ export default class ListActus extends React.Component {
         return (
           <ItemActus title={post.title.rendered}
               content={post.content.rendered}
+              extrait={post.excerpt.rendered}
               date={post.date}
               type={this.state.type}
-              key={index}
+              key={post.id}
           /> );
       });
 

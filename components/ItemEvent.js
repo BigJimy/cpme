@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
 
@@ -67,7 +67,11 @@ export default class ItemEvent extends React.Component {
            <View style={styles.item} >
                <Text style={styles.dateContent} >{this.props.date}</Text>
                <Text style={styles.titleContent} >{this.props.title}</Text>
-               <HTML html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+               <Image
+								style={{height: 150}}
+								source={{uri: this.props.image}}
+								resizeMode="center"
+							 />
             </View>
             <View style={styles.buttonShowMoreContainer}>
             	  <TouchableOpacity 
@@ -104,12 +108,16 @@ const styles = StyleSheet.create({
   titleContent: {
     fontWeight: 'bold',
 		padding: 5,
+		textAlign: 'center',
+		paddingBottom: 20,
+		paddingTop: 10,
   },
   dateContent: {
     textAlign: 'center',
     fontSize: 12,
     fontFamily: 'Roboto',
     fontStyle: 'italic',
+		paddingTop: 5,
   },
 	modalTitleContent: {
     fontSize: 18,
@@ -117,6 +125,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
 		padding: 5,
+		paddingTop: 40
   },
   modalDateContent: {
     fontSize: 12,

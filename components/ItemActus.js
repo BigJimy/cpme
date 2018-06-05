@@ -59,7 +59,7 @@ export default class ItemActus extends React.Component {
            <View style={styles.item} >
                <Text style={styles.dateContent} >{this.props.date}</Text>
                <Text style={styles.titleContent} >{this.props.title}</Text>
-               <HTML html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+               <HTML html={this.props.extrait}/>
             </View> 
             <View style={styles.buttonShowMoreContainer}>
                 <TouchableOpacity 
@@ -67,7 +67,7 @@ export default class ItemActus extends React.Component {
                     onPress={() => {this.setModalVisible(true)}}>
                     <Text style={styles.buttonText}>Voir +</Text>
                 </TouchableOpacity>
-            </View>
+            </View> 
         </View>
     );
 	}
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
 		padding: 5,
+		paddingTop: 40
   },
   modalDateContent: {
     fontSize: 12,
