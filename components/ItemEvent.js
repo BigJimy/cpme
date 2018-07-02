@@ -3,6 +3,7 @@ import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Bu
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
 import axios from 'axios';
+import Hyperlink from 'react-native-hyperlink';
 
 export default class ItemEvent extends React.Component {
 
@@ -87,18 +88,18 @@ export default class ItemEvent extends React.Component {
                </TouchableOpacity>
            )
        } else if(this.state.status === "Requete effectuée") {
-           buttonParticipate = <Text>Inscription validée</Text>
+           buttonParticipate = <Text style={styles.msgValidation}>Inscription validée</Text>
        } else if(this.state.status === "Please provide correct post details") {
-           buttonParticipate = <Text>Veuillez vérifier vos paramètres utilisateurs</Text>
+           buttonParticipate = <Text style={styles.msgValidation}>Veuillez vérifier vos paramètres utilisateurs</Text>
        } else {
-           buttonParticipate = <Text>Une erreur est survenue, veuillez contacter la CPME pour votre inscription</Text>
+           buttonParticipate = <Text style={styles.msgValidation}>Une erreur est survenue, veuillez contacter la CPME pour votre inscription</Text>
        }
 	}
 	else {
 		
 		buttonParticipate = (
-			<Text>
-				Vous souhaitez vous inscrire ? Merci de remplir tous les champs du formulaire dans les paramètres de l'application.
+			<Text style={styles.msgValidation}>
+				Pour vous inscrire, merci de remplir tous les champs du formulaire dans les paramètres de l'application.
 			</Text>
 		)
 	}
@@ -124,14 +125,30 @@ export default class ItemEvent extends React.Component {
 									Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
 							</Text>
 							<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
-							<Text  >Lieu</Text>
-							<Text  >{this.props.lieu_nom}</Text>
-							<Text  >{this.props.lieu_address}</Text>
-							<Text  >{this.props.lieu_zip} {this.props.lieu_city}</Text>
-							<Text  >{this.props.lieu_phone}</Text>
-							<Text  >{this.props.lieu_web}</Text>
-							<Text  >Date</Text>
-							<Text  >{this.props.date_debut} - {this.props.date_fin}</Text>
+							<Text  >
+								<Feather 
+										style={styles.icon}
+										name="map-pin" size={12} 
+										color="#294147"
+								/> {this.props.lieu_nom}</Text>
+							<Text>{this.props.lieu_address}</Text>
+							<Text>{this.props.lieu_zip} {this.props.lieu_city}</Text>
+							<Text>{this.props.lieu_phone}</Text>
+							<Text style={styles.date}>
+								<Feather 
+											style={styles.icon}
+											name="calendar" size={12} 
+											color="#294147"
+									/> du {this.props.date_debut.slice(0,10).split("-").reverse().join("/")} à {this.props.date_debut.slice(11,16)}
+							</Text>
+							<Text>
+								 au {this.props.date_fin.slice(0,10).split("-").reverse().join("/")}  à {this.props.date_fin.slice(11,16)}
+							</Text>
+							<Hyperlink linkDefault={ true }>
+								<Text style={styles.siteweb}>
+									{this.props.lieu_web}
+								</Text>
+							</Hyperlink>
 
 							<TouchableOpacity
 									style={styles.closeButtonStyle}
@@ -158,14 +175,26 @@ export default class ItemEvent extends React.Component {
 			<View style={styles.item} >
 					<Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
 					<Text style={styles.titleContent} >{this.props.title}</Text>
-					<Text  >Lieu</Text>
-					<Text  >{this.props.lieu_nom}</Text>
+					<Text  >
+						<Feather 
+								style={styles.icon}
+								name="map-pin" size={12} 
+								color="#294147"
+						/> {this.props.lieu_nom}</Text>
 					<Text  >{this.props.lieu_address}</Text>
 					<Text  >{this.props.lieu_zip} {this.props.lieu_city}</Text>
-					<Text  >Date</Text>
-					<Text  >{this.props.date_debut} - {this.props.date_fin}</Text>
+					<Text style={styles.date}>
+						<Feather 
+									style={styles.icon}
+									name="calendar" size={12} 
+									color="#294147"
+							/> du {this.props.date_debut.slice(0,10).split("-").reverse().join("/")} à {this.props.date_debut.slice(11,16)}
+					</Text>
+					<Text>
+						 au {this.props.date_fin.slice(0,10).split("-").reverse().join("/")}  à {this.props.date_fin.slice(11,16)}
+					</Text>
 					<Image
-							style={{height: 150}}
+							style={{height: 150, marginTop: 20}}
 							source={{uri: this.props.image}}
 							resizeMode="center"
 					 />
@@ -176,6 +205,7 @@ export default class ItemEvent extends React.Component {
 							 onPress={() => {
 									this.setModalVisible(true)
 									this.isAuthentified()
+									console.log(this.props.date_fin)
 								}}>
 							 <Text style={styles.buttonText}>Voir +</Text>
 					 </TouchableOpacity>
@@ -211,6 +241,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		paddingBottom: 20,
 		paddingTop: 10,
+		fontSize: 18
   },
   dateContent: {
     textAlign: 'center',
@@ -270,6 +301,7 @@ const styles = StyleSheet.create({
 		padding: 3,
 		alignItems: 'center',
 		justifyContent: 'flex-end',	
+		marginTop: 20
 	},
   buttonParticipeStyle: {
     backgroundColor: '#b31d27',
@@ -295,9 +327,21 @@ const styles = StyleSheet.create({
 		paddingRight: 10,
   },
 	icon: {
-			fontWeight: 'bold'
+		fontWeight: 'bold'
 	},
 	iconDate: {
-			marginRight: 10,
+		marginRight: 10,
+	},
+	msgValidation: {
+		fontWeight: 'bold',
+		color: '#1B5567',
+		fontSize: 20,
+		textAlign: 'center'
+	},
+	date: {
+		marginTop: 4
+	},
+	date: {
+		marginTop: 4
 	}
 });
