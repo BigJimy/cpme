@@ -14,7 +14,8 @@ export default class ItemEvent extends React.Component {
           email: '',
           phoneNumber: '',
 				  notification: false,
-					authentified: false
+					authentified: false,
+					status: ''
     }
 	
 	setModalVisible(visible) {
@@ -62,6 +63,7 @@ export default class ItemEvent extends React.Component {
        })
        .then((response) => {
            console.log(response.data.status)
+					 this.setState({status: response.data.status})
        })                
     }
 	
@@ -70,20 +72,30 @@ export default class ItemEvent extends React.Component {
 	let buttonParticipate = '';
 
 	if(this.state.authentified === true) {
-		buttonParticipate = (
-			<TouchableOpacity
-					style={styles.buttonParticipeStyle}
-					onPress={() => {
-					this.setModalVisible(!this.state.modalVisible);
-					this.participate();                         
-			}}>
-					<Text style={styles.buttonParticipeText} >
-							JE PARTICIPE
-					</Text>
-			</TouchableOpacity>			
-		)
+		 if(this.state.status === "") {
+           buttonParticipate = (
+               <TouchableOpacity
+                   style={styles.buttonParticipeStyle}
+                   onPress={() => {
+               
+                    this.participate();}}>
+                   <Text
+                       style={styles.buttonParticipeText}
+                   >
+                       JE PARTICIPE
+                   </Text>
+               </TouchableOpacity>
+           )
+       } else if(this.state.status === "Requete effectuée") {
+           buttonParticipate = <Text>Inscription validée</Text>
+       } else if(this.state.status === "Please provide correct post details") {
+           buttonParticipate = <Text>Veuillez vérifier vos paramètres utilisateurs</Text>
+       } else {
+           buttonParticipate = <Text>Une erreur est survenue, veuillez contacter la CPME pour votre inscription</Text>
+       }
 	}
 	else {
+		
 		buttonParticipate = (
 			<Text>
 				Vous souhaitez vous inscrire ? Merci de remplir tous les champs du formulaire dans les paramètres de l'application.
