@@ -25,15 +25,18 @@ export default class ListActus extends React.Component {
  	render() {
      let affichage = this.state.post.map((post, index) => {
        return (
-         <ItemActus title={post.post_title}
+         <ItemActus 
+             title={post.post_title}
              content={post.post_content}
              extrait={post.post_excerpt}
              date={post.post_date}
              type={this.state.type}
              image={post.thumbnail}
-             cle={post.id}
-             key={post.id}
-         /> );
+             key={post.ID}
+             cle={post.ID}
+         /> 
+			 );
+
      });
 
     return (

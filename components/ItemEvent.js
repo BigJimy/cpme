@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image, AsyncStorage } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
+import axios from 'axios';
 
 export default class ItemEvent extends React.Component {
 
@@ -33,9 +34,7 @@ export default class ItemEvent extends React.Component {
 			})
 
 			if(this.state.firstName && this.state.lastName && this.state.enterprise && this.state.email && this.state.phoneNumber) {
-//				console.log(this.state);
 				this.setState({authentified: true})
-//				console.log(this.state.authentified)
 			}	
 			else {
 				this.setState({authentified: false})
@@ -45,6 +44,26 @@ export default class ItemEvent extends React.Component {
 			console.log("Error saving data" + error)
 		}
 	}
+	
+	participate = () => {
+       firstname = this.state.firstName;
+       lastname = this.state.lastName;
+       entreprise = this.state.enterprise;
+       email = this.state.email;
+       phone = this.state.phoneNumber;
+       idEvent = this.props.cle;
+       axios.post('http://cpme.codeursyonnais.fr/wordpress/wp-json/addAttendees/v1', {
+           "firstname" : firstname,
+           "lastname" : lastname,
+           "entreprise" : entreprise,
+           "email" : email,
+           "phone" : phone,
+           "idEvent" : idEvent
+       })
+       .then((response) => {
+           console.log(response.data.status)
+       })                
+    }
 	
  render() {
 	 
