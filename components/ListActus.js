@@ -19,7 +19,6 @@ export default class ListActus extends React.Component {
 			axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/mycpme/v1/post`)
 			 .then((response) => {
 					 this.setState({ post: response.data, type: "Actualité"})
-					 console.log(post);
 				 })
 	 }
 

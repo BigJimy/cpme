@@ -17,7 +17,7 @@ export default class ListEvent extends React.Component {
   }
   
 		componentWillMount () {
-			 axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/ee/v4.8.29/events?include=Datetime.DTT_EVT_start,Datetime.DTT_EVT_end,Venue.VNU_adress,Venue.VNU_city,Venue.VNU_zip,Venue.VNU_phone,Venue.VNU_url,Venue.VNU_name,EVT_slug,EVT_name,EVT_ID,EVT_desc,EVT_created,EVT_short_desc,%20featured_image_url`)
+			 axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/ee/v4.8.29/events?include=Datetime.DTT_EVT_start,Datetime.DTT_EVT_end,Venue.VNU_address,Venue.VNU_city,Venue.VNU_zip,Venue.VNU_phone,Venue.VNU_url,Venue.VNU_name,EVT_slug,EVT_name,EVT_ID,EVT_desc,EVT_created,%20featured_image_url`)
 				 .then((response) => {
 						 this.setState({ post: response.data, type: "Evénement", isLoading: false})
 					 })
@@ -41,7 +41,6 @@ export default class ListEvent extends React.Component {
 							 date={post.EVT_created}
 							 image={post.featured_image_url}
 							 type={this.state.type}
-							 extract={post.EVT_short_desc}
 							 cle={post.EVT_ID}
 							 key={post.EVT_ID}
 							 date_debut={post.datetimes[0].DTT_EVT_start}
