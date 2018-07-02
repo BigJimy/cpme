@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View, TouchableHighlight, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, ScrollView, TouchableOpacity, Dimensions, Image } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
 
@@ -57,6 +57,11 @@ export default class ItemActus extends React.Component {
            <View style={styles.item} >
                <Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
                <Text style={styles.titleContent} >{this.props.title}</Text>
+               <Image
+									style={{height: 150}}
+									source={{uri: this.props.image}}
+									resizeMode="center"
+							 />
                <HTML html={this.props.extrait}/>
             </View> 
             <View style={styles.buttonShowMoreContainer}>

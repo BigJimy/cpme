@@ -49,80 +49,92 @@ export default class ItemEvent extends React.Component {
 	}
 	
 	render() {
-    return (
-        <View style={styles.itemContainer} >
-					<Modal
-						animationType="slide"
-						transparent={false}
-						visible={this.state.modalVisible}
-						onRequestClose={() => {this.setModalVisible(false)}}
-						>
-						<ScrollView>
-							<View style={{margin: 5, padding: 10}}>
-								<View>
-									<Text style={styles.modalTitleContent} >{this.props.title}</Text>
-									<Feather 
-										style={styles.iconDate}
-										name="clock" size={12} 
-										color="#294147"
-									/> 
-									<Text style={styles.modalDateContent} >
-										Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
-									</Text>
-									<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+ return (
+       <View style={styles.itemContainer} >
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {this.setModalVisible(false)}}
+                        >
+                        <ScrollView>
+                            <View style={{margin: 5, padding: 10}}>
+                                <View>
+                                    <Text style={styles.modalTitleContent} >{this.props.title}</Text>
+                                    <Feather 
+                                        style={styles.iconDate}
+                                        name="clock" size={12} 
+                                        color="#294147"
+                                    /> 
+                                    <Text style={styles.modalDateContent} >
+                                        Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
+                                    </Text>
+                                    <HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
+                                    <Text  >Lieu</Text>
+                                    <Text  >{this.props.lieu_nom}</Text>
+                                    <Text  >{this.props.lieu_address}</Text>
+                                    <Text  >{this.props.lieu_zip} {this.props.lieu_city}</Text>
+                                    <Text  >{this.props.lieu_phone}</Text>
+                                    <Text  >{this.props.lieu_web}</Text>
+                                     <Text  >Date</Text>
+                                     <Text  >{this.props.date_debut} - {this.props.date_fin}</Text>
 
-
-									<TouchableOpacity
-										style={styles.closeButtonStyle}
-										onPress={() => {
-											this.setModalVisible(!this.state.modalVisible);
-										}}>
-										<Feather 
-											style={styles.icon}
-											name="x-circle" size={32} 
-											color="#294147"
-										/> 
-									</TouchableOpacity>								
-								</View>
-								<View style={styles.buttonParticipeContainer}>
-										<TouchableOpacity
-												style={styles.buttonParticipeStyle}
-												onPress={() => {
-											this.setModalVisible(!this.state.modalVisible);
-											this.participate();
-											}}>
-												<Text 
-													style={styles.buttonParticipeText}
-												>
-													JE PARTICIPE
-												</Text>
-										</TouchableOpacity>
-								</View> 
-							</View>
-						</ScrollView>
-					</Modal>
-          
-           <View style={styles.categoryContainer} >
-               <Text style={styles.categoryName} >{this.props.type}</Text>
-           </View>
-           <View style={styles.item} >
-               <Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
-               <Text style={styles.titleContent} >{this.props.title}</Text>
-               <Image
-								style={{height: 150}}
-								source={{uri: this.props.image}}
-								resizeMode="center"
+                                    <TouchableOpacity
+                                        style={styles.closeButtonStyle}
+                                        onPress={() => {
+                                            this.setModalVisible(!this.state.modalVisible);
+                                        }}>
+                                        <Feather 
+                                            style={styles.icon}
+                                            name="x-circle" size={32} 
+                                            color="#294147"
+                                        /> 
+                                    </TouchableOpacity>                                
+                                </View>
+                                <View style={styles.buttonParticipeContainer}>
+                                        <TouchableOpacity
+                                                style={styles.buttonParticipeStyle}
+                                                onPress={() => {
+                                            this.setModalVisible(!this.state.modalVisible);
+                                            this.participate();                                            }}>
+                                                <Text 
+                                                    style={styles.buttonParticipeText}
+                                                >
+                                                    JE PARTICIPE
+                                                </Text>
+                                        </TouchableOpacity>
+                                </View> 
+                            </View>
+                        </ScrollView>
+                    </Modal>
+         
+          <View style={styles.categoryContainer} >
+              <Text style={styles.categoryName} >{this.props.type}</Text>
+          </View>
+          <View style={styles.item} >
+              <Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
+							<Text style={styles.titleContent} >{this.props.title}</Text>
+							<Text  >Lieu</Text>
+							<Text  >{this.props.lieu_nom}</Text>
+							<Text  >{this.props.lieu_address}</Text>
+							<Text  >{this.props.lieu_zip} {this.props.lieu_city}</Text>
+							<Text  >Date</Text>
+							<Text  >{this.props.date_debut} - {this.props.date_fin}</Text>
+              <Image
+									style={{height: 150}}
+									source={{uri: this.props.image}}
+									resizeMode="center"
 							 />
-            </View>
-            <View style={styles.buttonShowMoreContainer}>
-            	  <TouchableOpacity 
-                    style={styles.buttonStyle}
-                    onPress={() => {this.setModalVisible(true)}}>
-                    <Text style={styles.buttonText}>Voir +</Text>
-                </TouchableOpacity>
-            </View> 
-        </View>
-    );
+           </View>
+           <View style={styles.buttonShowMoreContainer}>
+               <TouchableOpacity 
+                   style={styles.buttonStyle}
+                   onPress={() => {this.setModalVisible(true)}}>
+                   <Text style={styles.buttonText}>Voir +</Text>
+               </TouchableOpacity>
+           </View> 
+       </View>
+   );
 	}
 }
 

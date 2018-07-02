@@ -15,27 +15,27 @@ export default class ListActus extends React.Component {
     }
   }
   
-  componentWillMount () {
-    axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/wp/v2/posts`)
-      .then((response) => {
-          this.setState({ post: response.data, type: "Actualité"})
-        })
-  }
+	componentWillMount () {
+			axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/mycpme/v1/post`)
+			 .then((response) => {
+					 this.setState({ post: response.data, type: "Actualité"})
+					 console.log(post);
+				 })
+	 }
 
-
-
-  render() {
-      const posts = this.state.post
-      let affichage = this.state.post.map((post, index) => {
-        return (
-          <ItemActus title={post.title.rendered}
-              content={post.content.rendered}
-              extrait={post.excerpt.rendered}
-              date={post.date}
-              type={this.state.type}
-              key={post.id}
-          /> );
-      });
+ 	render() {
+     let affichage = this.state.post.map((post, index) => {
+       return (
+         <ItemActus title={post.post_title}
+             content={post.post_content}
+             extrait={post.post_excerpt}
+             date={post.post_date}
+             type={this.state.type}
+             image={post.thumbnail}
+             cle={post.id}
+             key={post.id}
+         /> );
+     });
 
     return (
       <View style={styles.itemsContainer}>
