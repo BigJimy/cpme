@@ -1,15 +1,51 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image, AsyncStorage } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather } from '@expo/vector-icons';
 
 export default class ItemEvent extends React.Component {
-	state = {
-		modalVisible: false,
-	};
+
+		state = {
+					modalVisible: false,
+          firstName: '',
+          lastName: '',
+          enterprise: '',
+          email: '',
+          phoneNumber: '',
+				  notification: false,
+      }
 	
 	setModalVisible(visible) {
 		this.setState({modalVisible: visible});
+	}
+	
+	participate = async () => {
+		console.log(this.props.cle);
+		try {
+			let user = await AsyncStorage.getItem('user');
+			let parsed = JSON.parse(user);
+			this.setState({ 
+				firstName: parsed.firstName,
+				lastName: parsed.lastName,
+				enterprise: parsed.enterprise,
+				email: parsed.email,
+				phoneNumber: parsed.phoneNumber
+			})
+
+			if(this.state.firstName) {
+				console.log(this.state.firstName);	
+				
+				// PARTIE A REMPLIR PAR JULIEN
+				
+			}
+			else {
+				
+				// AFFICHER MODAL "veuillez remplir vos informations dans Paramètres avant de vous inscrire."
+			}				
+		}
+		catch(error) {
+			console.log("Error saving data" + error)
+		}
 	}
 	
 	render() {
@@ -53,6 +89,7 @@ export default class ItemEvent extends React.Component {
 												style={styles.buttonParticipeStyle}
 												onPress={() => {
 											this.setModalVisible(!this.state.modalVisible);
+											this.participate();
 											}}>
 												<Text 
 													style={styles.buttonParticipeText}

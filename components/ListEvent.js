@@ -47,6 +47,7 @@ export default class ListEvent extends React.Component {
                 image={post.featured_image_url}
                 type={this.state.type}
                 key={post.EVT_ID}
+                cle={post.EVT_ID}
             /> );
         });
 

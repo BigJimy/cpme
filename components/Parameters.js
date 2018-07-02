@@ -58,7 +58,7 @@ export default class Parameters extends React.Component {
 			alert(parsed.firstName + "\n" + parsed.lastName + "\n" + parsed.enterprise + "\n" + parsed.email + "\n" + parsed.phoneNumber)
 		} 
 		catch(error) {
-			console.log("Error saving data" + error)
+			console.log("Error data" + error)
 		}
 	} 	
 	
