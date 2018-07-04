@@ -83,7 +83,7 @@ export default class ItemEvent extends React.Component {
            "idEvent" : idEvent
        })
        .then((response) => {
-					 this.setState({status: response.data.status})
+					 this.setState({status: response.data.status, inscrit: true})
        })                
     }
 	
@@ -173,9 +173,7 @@ export default class ItemEvent extends React.Component {
 				animationType="slide"
 				transparent={false}
 				visible={this.state.modalVisible}
-				onRequestClose={() => {this.setModalVisible(false);
-															this.forceUpdate()} 
-											 				}
+				onRequestClose={() => {this.setModalVisible(false)}}
 			>
 				<ScrollView>
 					<View style={{margin: 5, padding: 10}}>
@@ -237,9 +235,6 @@ export default class ItemEvent extends React.Component {
 				</ScrollView>
 			</Modal>
 
-			<View style={styles.categoryContainer} >
-					<Text style={styles.categoryName} >{this.props.type}</Text>
-			</View>
 			<View style={styles.item} >
 				
 					{star}

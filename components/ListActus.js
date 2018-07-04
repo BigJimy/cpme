@@ -11,14 +11,14 @@ export default class ListActus extends React.Component {
     super();
     this.state = {
       post: [],
-      type: ''
+      type: 'Actualité'
     }
   }
   
 	componentWillMount () {
 			axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/mycpme/v1/post`)
 			 .then((response) => {
-					 this.setState({ post: response.data, type: "Actualité"})
+					 this.setState({ post: response.data})
 				 })
 	 }
 
@@ -30,7 +30,6 @@ export default class ListActus extends React.Component {
              content={post.post_content}
              extrait={post.post_excerpt}
              date={post.post_date}
-             type={this.state.type}
              image={post.thumbnail}
              key={post.ID}
              cle={post.ID}
@@ -41,6 +40,9 @@ export default class ListActus extends React.Component {
 
     return (
       <View style={styles.itemsContainer}>
+           <View style={styles.categoryContainer} >
+               <Text style={styles.categoryName} >{this.state.type}</Text>
+           </View>
           {affichage}
       </View>
     );
@@ -54,11 +56,18 @@ const styles = StyleSheet.create({
     flex: 10,
     backgroundColor: '#F2F2F2',
     width: '100%',
-  }
+  },
+	categoryContainer: {
+		zIndex: 1,
+		padding: 3,
+		alignItems: 'center',
+		width: '100%',
+    backgroundColor: '#07A9B4',
+  },
+  categoryName: {
+    textAlign: 'center', 
+    color: 'white',
+    fontSize: 18,
+		padding: 5,
+  },
 });
-
-
-
-// Retrouver tous les articles
-// Trouver le nombre d'articles retrouvé
-// POUR CHAQUE article afficher une nouvelle fois mon code et remplir les infos en fonction d'id

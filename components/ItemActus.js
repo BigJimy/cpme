@@ -50,9 +50,6 @@ export default class ItemActus extends React.Component {
 						</ScrollView>
 					</Modal>
           
-           <View style={styles.categoryContainer} >
-               <Text style={styles.categoryName} >{this.props.type}</Text>
-           </View>
            <View style={styles.item} >
                <Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
                <Text style={styles.titleContent} >{this.props.title}</Text>
@@ -117,26 +114,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Roboto',
     fontStyle: 'italic',
-  },
-  categoryContainer: {
-		zIndex: 1,
-		position: 'absolute',
-		left: 0,
-		right: 0,
-		top: 0,
-		bottom: 0,
-		padding: 3,
-		alignItems: 'center',
-  },
-  categoryName: {
-    textAlign: 'center', 
-    color: 'white',
-    fontSize: 18,
-    backgroundColor: '#07A9B4',
-		padding: 5,
-		padding: 5,
-		paddingLeft: 20,
-		paddingRight: 20,
   },
 	buttonShowMoreContainer: {
 		zIndex: 1,

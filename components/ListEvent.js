@@ -3,15 +3,19 @@ import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-nat
 import ItemEvent from './ItemEvent';
 import axios from 'axios';
 
-
-
+let name;
+let address;
+let city;
+let zip;
+let phone;
+let url;
 
 export default class ListEvent extends React.Component {
   constructor() {
     super();
     this.state = {
       post: [],
-      type: '',
+      type: 'Evénements',
 			isLoading: true
     }
   }
@@ -19,7 +23,7 @@ export default class ListEvent extends React.Component {
 		componentWillMount () {
 			 axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/ee/v4.8.29/events?include=Datetime.DTT_EVT_start,Datetime.DTT_EVT_end,Venue.VNU_address,Venue.VNU_city,Venue.VNU_zip,Venue.VNU_phone,Venue.VNU_url,Venue.VNU_name,EVT_slug,EVT_name,EVT_ID,EVT_desc,EVT_created,%20featured_image_url`)
 				 .then((response) => {
-						 this.setState({ post: response.data, type: "Evénement", isLoading: false})
+						 this.setState({ post: response.data, isLoading: false})
 					 })
 		 }
 
@@ -35,27 +39,45 @@ export default class ListEvent extends React.Component {
 		 
 		 render() {
 			 let affichage = this.state.post.map((post, index) => {
+				 if(post.venues[0]) {
+          name = post.venues[0].VNU_name
+         address = post.venues[0].VNU_address
+           city = post.venues[0].VNU_city
+           zip = post.venues[0].VNU_zip
+         phone = post.venues[0].VNU_phone
+         url = post.venues[0].VNU_url
+        } else {
+          name = "lieu indéfini"
+          address = ""
+         city = ""
+           zip = ""
+          phone = ""
+          url = ""
+        }
+				 
 				 return (
 					 <ItemEvent title={post.EVT_name}
 							 content={post.EVT_desc.rendered}
 							 date={post.EVT_created}
 							 image={post.featured_image_url}
-							 type={this.state.type}
 							 cle={post.EVT_ID}
 							 key={post.EVT_ID}
 							 date_debut={post.datetimes[0].DTT_EVT_start}
 							 date_fin={post.datetimes[0].DTT_EVT_end}
-							 lieu_nom={post.venues[0].VNU_name}
-							 lieu_address={post.venues[0].VNU_address}
-							 lieu_city={post.venues[0].VNU_city}
-							 lieu_zip={post.venues[0].VNU_zip}
-							 lieu_phone={post.venues[0].VNU_phone}
-							 lieu_web={post.venues[0].VNU_url}
+							 lieu_nom={name}
+							 lieu_address={address}
+							 lieu_city={city}
+							 lieu_zip={zip}
+							 lieu_phone={phone}
+							 lieu_web={url}
 					 /> );
 			 });
 
     return (
       <View style={styles.itemsContainer}>
+         	<View style={styles.categoryContainer} >
+							<Text style={styles.categoryName} >{this.state.type}</Text>
+					</View>
           {affichage}
           {this._displayLoading()}
          
@@ -80,12 +102,18 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center'
-  }
-
+  },
+	categoryContainer: {
+		zIndex: 1,
+		padding: 3,
+		alignItems: 'center',
+		width: '100%',
+    backgroundColor: '#b31d27',
+  },
+  categoryName: {
+    textAlign: 'center', 
+    color: 'white',
+    fontSize: 18,
+		padding: 5,
+  },
 });
-
-
-
-// Retrouver tous les articles
-// Trouver le nombre d'articles retrouvé
-// POUR CHAQUE article afficher une nouvelle fois mon code et remplir les infos en fonction d'id
