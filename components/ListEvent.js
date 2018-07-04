@@ -30,9 +30,9 @@ export default class ListEvent extends React.Component {
             <ActivityIndicator size='large' />
           </View>
         )
-    }
+			}
 		}
-
+		 
 		 render() {
 			 let affichage = this.state.post.map((post, index) => {
 				 return (
@@ -58,6 +58,7 @@ export default class ListEvent extends React.Component {
       <View style={styles.itemsContainer}>
           {affichage}
           {this._displayLoading()}
+         
       </View>
     );
   }

@@ -14,7 +14,8 @@ export default class Parameters extends React.Component {
           enterprise: '',
           email: '',
           phoneNumber: '',
-				  notification: false
+				  notification: false,
+					events: []
       }
   }
 			
@@ -44,7 +45,8 @@ export default class Parameters extends React.Component {
 			lastName: this.state.lastName,
 			enterprise: this.state.enterprise,
 			email: this.state.email,
-			phoneNumber: this.state.phoneNumber
+			phoneNumber: this.state.phoneNumber,
+			events: this.state.events
 			}
 		AsyncStorage.setItem('user', JSON.stringify(obj));
 		alert('Coordonnées sauvegardées')
@@ -71,7 +73,8 @@ export default class Parameters extends React.Component {
 				lastName: parsed.lastName,
 				enterprise: parsed.enterprise,
 				email: parsed.email,
-				phoneNumber: parsed.phoneNumber
+				phoneNumber: parsed.phoneNumber,
+				events: parsed.events
 			})
 		} 
 		catch(error) {

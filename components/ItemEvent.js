@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image, AsyncStorage } from 'react-native';
 import HTML from 'react-native-render-html';
-import { Feather } from '@expo/vector-icons';
+import { Feather, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import Hyperlink from 'react-native-hyperlink';
 
@@ -16,9 +16,14 @@ export default class ItemEvent extends React.Component {
           phoneNumber: '',
 				  notification: false,
 					authentified: false,
-					status: ''
+					status: '',
+					events: [],
+					inscrit: false
     }
 	
+  componentDidMount() {
+		this.isAuthentified()
+	}
 	setModalVisible(visible) {
 		this.setState({modalVisible: visible});
 	}
@@ -32,15 +37,30 @@ export default class ItemEvent extends React.Component {
 				lastName: parsed.lastName,
 				enterprise: parsed.enterprise,
 				email: parsed.email,
-				phoneNumber: parsed.phoneNumber
+				phoneNumber: parsed.phoneNumber,
+				events: parsed.events
 			})
 
+			
+			//
 			if(this.state.firstName && this.state.lastName && this.state.enterprise && this.state.email && this.state.phoneNumber) {
 				this.setState({authentified: true})
 			}	
 			else {
 				this.setState({authentified: false})
 			}
+			
+			
+			//
+			if(this.state.events) {
+				for(let i = 0; i  < this.state.events.length; i++) {
+                console.log("valeur tableau Events dans boucle: " + this.state.events[i])
+                if(this.state.events[i] === this.props.cle) {
+                    this.setState({inscrit: true})
+                }
+            }			
+			}	
+			
 		}
 		catch(error) {
 			console.log("Error saving data" + error)
@@ -67,32 +87,54 @@ export default class ItemEvent extends React.Component {
        })                
     }
 	
+	agendaStorage = () => {
+        let newEvents = (this.state.events ? this.state.events : [])
+				console.log("AgendaStorage: " + newEvents)
+        newEvents.push(this.props.cle)
+
+        let obj = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            enterprise: this.state.enterprise,
+            email: this.state.email,
+     phoneNumber: this.state.phoneNumber,
+     events: newEvents
+            }
+        AsyncStorage.setItem('user', JSON.stringify(obj));
+       alert('Inscription enregistrée');
+    }
+	
  render() {
 	 
 	let buttonParticipate = '';
 
 	if(this.state.authentified === true) {
-		 if(this.state.status === "") {
-           buttonParticipate = (
-               <TouchableOpacity
-                   style={styles.buttonParticipeStyle}
-                   onPress={() => {
-               
-                    this.participate();}}>
-                   <Text
-                       style={styles.buttonParticipeText}
-                   >
-                       JE PARTICIPE
-                   </Text>
-               </TouchableOpacity>
-           )
-       } else if(this.state.status === "Requete effectuée") {
-           buttonParticipate = <Text style={styles.msgValidation}>Inscription validée</Text>
-       } else if(this.state.status === "Please provide correct post details") {
-           buttonParticipate = <Text style={styles.msgValidation}>Veuillez vérifier vos paramètres utilisateurs</Text>
-       } else {
-           buttonParticipate = <Text style={styles.msgValidation}>Une erreur est survenue, veuillez contacter la CPME pour votre inscription</Text>
-       }
+			if(this.state.inscrit === false) {
+				 if(this.state.status === "") {
+							 buttonParticipate = (
+									 <TouchableOpacity
+											 style={styles.buttonParticipeStyle}
+											 onPress={() => {
+										 		this.agendaStorage()
+												this.participate()}}>
+											 <Text
+													 style={styles.buttonParticipeText}
+											 >
+													 JE PARTICIPE
+											 </Text>
+									 </TouchableOpacity>
+							 )
+					 } else if(this.state.status === "Requete effectuée") {
+							 buttonParticipate = <Text style={styles.msgValidation}>Inscription validée</Text>
+					 } else if(this.state.status === "Please provide correct post details") {
+							 buttonParticipate = <Text style={styles.msgValidation}>Veuillez vérifier vos paramètres utilisateurs</Text>
+					 } else {
+							 buttonParticipate = <Text style={styles.msgValidation}>Une erreur est survenue, veuillez contacter la CPME pour votre inscription</Text>
+					 }			
+			} else {
+                buttonParticipate = <Text style={styles.msgValidation}>Vous êtes inscrit à cet évènement</Text>
+            }
+
 	}
 	else {
 		
@@ -102,6 +144,28 @@ export default class ItemEvent extends React.Component {
 			</Text>
 		)
 	}
+
+	 let star = ""
+	 if(this.state.inscrit) {
+		 star = (
+		 					<View>
+		 						<FontAwesome 
+										style={styles.icon_favorite}
+										name="star" size={26} 
+										color="#07A9B4"
+								/>
+		 					</View>
+		 )
+	 }
+	 else {
+		 star = (
+		 <View></View>
+		 )
+	 }
+	 
+	 
+	 
+	 
 	 
  return (
 	 <View style={styles.itemContainer} >
@@ -109,7 +173,9 @@ export default class ItemEvent extends React.Component {
 				animationType="slide"
 				transparent={false}
 				visible={this.state.modalVisible}
-				onRequestClose={() => {this.setModalVisible(false)}}
+				onRequestClose={() => {this.setModalVisible(false);
+															this.forceUpdate()} 
+											 				}
 			>
 				<ScrollView>
 					<View style={{margin: 5, padding: 10}}>
@@ -175,6 +241,9 @@ export default class ItemEvent extends React.Component {
 					<Text style={styles.categoryName} >{this.props.type}</Text>
 			</View>
 			<View style={styles.item} >
+				
+					{star}
+					
 					<Text style={styles.dateContent} >Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}</Text>
 					<Text style={styles.titleContent} >{this.props.title}</Text>
 					<Text  >
@@ -206,7 +275,6 @@ export default class ItemEvent extends React.Component {
 							 style={styles.buttonStyle}
 							 onPress={() => {
 									this.setModalVisible(true)
-									this.isAuthentified()
 								}}>
 							 <Text style={styles.buttonText}>Voir +</Text>
 					 </TouchableOpacity>
@@ -329,6 +397,13 @@ const styles = StyleSheet.create({
   },
 	icon: {
 		fontWeight: 'bold'
+	},	
+	iconFavorite: {
+		fontWeight: 'bold',
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		zIndex: 1
 	},
 	iconDate: {
 		marginRight: 10,
