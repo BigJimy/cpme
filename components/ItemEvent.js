@@ -63,7 +63,6 @@ export default class ItemEvent extends React.Component {
            "idEvent" : idEvent
        })
        .then((response) => {
-           console.log(response.data.status)
 					 this.setState({status: response.data.status})
        })                
     }
@@ -116,13 +115,12 @@ export default class ItemEvent extends React.Component {
 					<View style={{margin: 5, padding: 10}}>
 						<View>
 							<Text style={styles.modalTitleContent} >{this.props.title}</Text>
-							<Feather 
-									style={styles.iconDate}
-									name="clock" size={12} 
-									color="#294147"
-							/> 
 							<Text style={styles.modalDateContent} >
-									Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
+								<Feather 
+										style={styles.iconDate}
+										name="clock" size={12} 
+										color="#294147"
+								/> Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
 							</Text>
 							<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
 							<Text  >
@@ -146,7 +144,11 @@ export default class ItemEvent extends React.Component {
 							</Text>
 							<Hyperlink linkDefault={ true }>
 								<Text style={styles.siteweb}>
-									{this.props.lieu_web}
+									<Feather 
+										style={styles.icon}
+										name="info" size={12} 
+										color="#294147"
+									/> {this.props.lieu_web}
 								</Text>
 							</Hyperlink>
 
@@ -205,7 +207,6 @@ export default class ItemEvent extends React.Component {
 							 onPress={() => {
 									this.setModalVisible(true)
 									this.isAuthentified()
-									console.log(this.props.date_fin)
 								}}>
 							 <Text style={styles.buttonText}>Voir +</Text>
 					 </TouchableOpacity>
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
 	date: {
 		marginTop: 4
 	},
-	date: {
-		marginTop: 4
+	siteweb: {
+		fontWeight: 'bold',
 	}
 });

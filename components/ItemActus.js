@@ -25,13 +25,12 @@ export default class ItemActus extends React.Component {
 							<View style={{margin: 5, padding: 10}}>
 								<View>
 									<Text style={styles.modalTitleContent} >{this.props.title}</Text>
-									<Feather 
-										style={styles.iconDate}
-										name="clock" size={12} 
-										color="#294147"
-									/> 
 									<Text style={styles.modalDateContent} >
-										Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
+										<Feather 
+											style={styles.iconDate}
+											name="clock" size={12} 
+											color="#294147"
+										/> Publié le {this.props.date.slice(0,10).split("-").reverse().join("/")}
 									</Text>
 									<HTML style={styles.textContent} html={this.props.content} imageMaxWidth={Dimensions.get('window').width} />
 
@@ -157,9 +156,9 @@ const styles = StyleSheet.create({
 	closeButtonStyle: {
       zIndex: 1,
       position: 'absolute',
-      top: 10,
-			right: 10,
-      padding: 3,
+      top: 0,
+			right: 0,
+      padding: 0,
   },
   buttonText: {
 		color: 'white',
