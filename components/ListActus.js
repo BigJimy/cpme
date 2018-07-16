@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import ItemActus from './ItemActus';
 import axios from 'axios';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
@@ -21,6 +22,14 @@ export default class ListActus extends React.Component {
 					 this.setState({ post: response.data})
 				 })
 	 }
+	
+	refresh() {
+		console.log("bonjour")
+			axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/mycpme/v1/post`)
+			 .then((response) => {
+					 this.setState({ post: response.data})
+				 })		
+	}
 
  	render() {
      let affichage = this.state.post.map((post, index) => {
@@ -41,6 +50,12 @@ export default class ListActus extends React.Component {
     return (
       <View style={styles.itemsContainer}>
            <View style={styles.categoryContainer} >
+              		<MaterialCommunityIcons 
+											style={styles.icon}
+											name="reload" size={32} 
+											color="whitesmoke"
+											onPress={() => {this.refresh()}}
+									/>
                <Text style={styles.categoryName} >{this.state.type}</Text>
            </View>
           {affichage}
@@ -70,4 +85,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
 		padding: 5,
   },
+	icon: {
+		position: 'absolute',
+		left: 5,
+		top: 3
+	}
 });

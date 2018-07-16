@@ -41,7 +41,8 @@ export default class ItemEvent extends React.Component {
 				enterprise: parsed.enterprise,
 				email: parsed.email,
 				phoneNumber: parsed.phoneNumber,
-				events: parsed.events
+				events: parsed.events,
+				adherent: parsed.adherent,
 			})
 
 			

@@ -42,7 +42,7 @@ export default class Parameters extends React.Component {
   }  
 	
 	changeAdherent() {
-		if(this.state.adherent = 'non-adherent'){
+		if(this.state.adherent === 'non-adherent'){
 			this.setState({
 				adherent: 'adherent', checkbox: true })
 		} else {
@@ -59,7 +59,8 @@ export default class Parameters extends React.Component {
 			email: this.state.email,
 			phoneNumber: this.state.phoneNumber,
 			events: this.state.events,
-			adherent: this.state.adherent
+			adherent: this.state.adherent,
+			checkbox: this.state.checkbox,
 			}
 		AsyncStorage.setItem('user', JSON.stringify(obj));
 		alert('Coordonnées sauvegardées')
@@ -77,7 +78,8 @@ export default class Parameters extends React.Component {
 				email: parsed.email,
 				phoneNumber: parsed.phoneNumber,
 				events: parsed.events,
-				adherent: parsed.adherent
+				adherent: parsed.adherent,
+				checkbox: parsed.checkbox,
 			})
 		} 
 		catch(error) {
