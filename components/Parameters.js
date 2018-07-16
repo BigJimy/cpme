@@ -36,7 +36,7 @@ export default class Parameters extends React.Component {
       this.setState({email})
   }
 	
-   changePhoneNumber() {
+   changePhoneNumber(phoneNumber) {
       this.setState({phoneNumber})
   }   
 	
@@ -58,6 +58,7 @@ export default class Parameters extends React.Component {
 			}
 		AsyncStorage.setItem('user', JSON.stringify(obj));
 		alert('Coordonnées sauvegardées')
+		this.props.navigation('App');
 	}	
 	
   componentWillMount = async () => {
@@ -126,6 +127,7 @@ render() {
 						 Adhérent CPME
 					 </Text>
         </View>
+        
         <ToggleSwitch
 						isOn={false}
 						onColor='#07A9B4'
@@ -135,7 +137,7 @@ render() {
 						size='small'
 						onToggle={ (isOn) => (
 					this.setState({navigation: isOn})
-				) }
+				)}
 				
 				/////////////////////////////////////////////////////////////////
 				//              REVOIR ONTOGGLE DES NOTIFICATIONS              //
