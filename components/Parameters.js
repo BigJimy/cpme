@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage, CheckBox } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, CheckBox, KeyboardAvoidingView } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -87,7 +87,10 @@ export default class Parameters extends React.Component {
 	
 render() {
 	return (
-      <View style={styles.parametersContainer}>
+      <KeyboardAvoidingView 
+       style={styles.parametersContainer}
+       behavior="padding"
+       >
         <FormLabel>Prénom</FormLabel>
         <FormInput
             placeholder="Votre prénom"
@@ -156,7 +159,7 @@ render() {
 						icon={{name: 'cloud-download'}}
 						title='ENREGISTRER' /> 
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
