@@ -15,7 +15,8 @@ export default class Parameters extends React.Component {
           email: '',
           phoneNumber: '',
 				  notification: false,
-					adherent: false,
+					checkbox: false,
+					adherent: 'non-adherent',
 					events: []
       }
   }
@@ -38,12 +39,16 @@ export default class Parameters extends React.Component {
 	
    changePhoneNumber(phoneNumber) {
       this.setState({phoneNumber})
-  }   
+  }  
 	
 	changeAdherent() {
+		if(this.state.adherent = 'non-adherent'){
 			this.setState({
-				adherent: !this.state.adherent
-			})  
+				adherent: 'adherent', checkbox: true })
+		} else {
+			this.setState({
+				adherent: 'non-adherent', checkbox: false})							
+		}
 	}
 	
 	submitForm() {	
@@ -120,7 +125,7 @@ render() {
         <FormValidationMessage></FormValidationMessage>  
 				<View style={{ flexDirection: 'row', marginBottom: 20}}>
 						<CheckBox
-								value={this.state.adherent}
+								value={this.state.checkbox}
 								onChange={() => this.changeAdherent()}
 						/>
 					 <Text style={{marginTop: 5}}>

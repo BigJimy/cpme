@@ -19,12 +19,14 @@ export default class ItemEvent extends React.Component {
 					status: '',
 					events: [],
 					inscrit: false,
-					storage: ""
+					storage: '',
+					adherent: ''
     }
 	
   componentDidMount() {
 		this.isAuthentified()
 	}
+	
 	setModalVisible(visible) {
 		this.setState({modalVisible: visible});
 	}
@@ -43,7 +45,6 @@ export default class ItemEvent extends React.Component {
 			})
 
 			
-			//
 			if(this.state.firstName && this.state.lastName && this.state.enterprise && this.state.email && this.state.phoneNumber) {
 				this.setState({authentified: true})
 			}	
@@ -74,13 +75,15 @@ export default class ItemEvent extends React.Component {
        email = this.state.email;
        phone = this.state.phoneNumber;
        idEvent = this.props.cle;
+			 adherent = this.state.adherent;
        axios.post('http://cpme.codeursyonnais.fr/wordpress/wp-json/addAttendees/v1', {
            "firstname" : firstname,
            "lastname" : lastname,
            "entreprise" : entreprise,
            "email" : email,
            "phone" : phone,
-           "idEvent" : idEvent
+           "idEvent" : idEvent,
+				   "adherent" : adherent
        })
        .then((response) => {
 					 this.setState({status: response.data.status, inscrit: true})
@@ -96,8 +99,9 @@ export default class ItemEvent extends React.Component {
             lastName: this.state.lastName,
             enterprise: this.state.enterprise,
             email: this.state.email,
-     phoneNumber: this.state.phoneNumber,
-     events: newEvents
+						phoneNumber: this.state.phoneNumber,
+						events: newEvents,
+						adherent: this.state.adherent
             }
         AsyncStorage.setItem('user', JSON.stringify(obj));
        alert('Inscription enregistrée');
@@ -140,7 +144,6 @@ export default class ItemEvent extends React.Component {
 			} else {
                 buttonParticipate = <Text style={styles.msgValidation}>Vous êtes inscrit à cet évènement</Text>
             }
-
 	}
 	else {
 		
@@ -168,10 +171,6 @@ export default class ItemEvent extends React.Component {
 		 <View></View>
 		 )
 	 }
-	 
-	 
-	 
-	 
 	 
  return (
 	 <View style={styles.itemContainer} >
@@ -252,7 +251,8 @@ export default class ItemEvent extends React.Component {
 								style={styles.icon}
 								name="map-pin" size={12} 
 								color="#294147"
-						/> {this.props.lieu_nom}</Text>
+						/> {this.props.lieu_nom}
+					</Text>
 					<Text  >{this.props.lieu_address}</Text>
 					<Text  >{this.props.lieu_zip} {this.props.lieu_city}</Text>
 					<Text style={styles.date}>
