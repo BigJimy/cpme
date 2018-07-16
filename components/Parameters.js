@@ -55,7 +55,6 @@ export default class Parameters extends React.Component {
 	displayData = async () => {
 		try {
 			let user = await AsyncStorage.getItem('user');
-			console.log(user)
 			let parsed = JSON.parse(user);
 			alert(parsed.firstName + "\n" + parsed.lastName + "\n" + parsed.enterprise + "\n" + parsed.email + "\n" + parsed.phoneNumber)
 		} 
@@ -128,8 +127,7 @@ render() {
 						labelStyle={{color: 'black', fontWeight: '900', marginHorizontal: 50}}
 						size='small'
 						onToggle={ (isOn) => (
-					this.setState({navigation: isOn}),
-					console.log(this.state.navigation)
+					this.setState({navigation: isOn})
 				) }
 				
 /////////////////////////////////////////////////////////////////

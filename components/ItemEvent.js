@@ -55,7 +55,6 @@ export default class ItemEvent extends React.Component {
 			//
 			if(this.state.events) {
 				for(let i = 0; i  < this.state.events.length; i++) {
-                console.log("valeur tableau Events dans boucle: " + this.state.events[i])
                 if(this.state.events[i] === this.props.cle) {
                     this.setState({inscrit: true})
                 }
@@ -90,7 +89,6 @@ export default class ItemEvent extends React.Component {
 	
 	agendaStorage = () => {
         let newEvents = (this.state.events ? this.state.events : [])
-				console.log("AgendaStorage: " + newEvents)
         newEvents.push(this.props.cle)
 
         let obj = {
