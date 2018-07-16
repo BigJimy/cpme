@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, CheckBox } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -15,6 +15,7 @@ export default class Parameters extends React.Component {
           email: '',
           phoneNumber: '',
 				  notification: false,
+					adherent: false,
 					events: []
       }
   }
@@ -35,9 +36,15 @@ export default class Parameters extends React.Component {
       this.setState({email})
   }
 	
-   changePhoneNumber(phoneNumber) {
+   changePhoneNumber() {
       this.setState({phoneNumber})
-  }
+  }   
+	
+	changeAdherent() {
+			this.setState({
+				adherent: !this.state.adherent
+			})  
+	}
 	
 	submitForm() {	
 		let obj = {
@@ -46,22 +53,12 @@ export default class Parameters extends React.Component {
 			enterprise: this.state.enterprise,
 			email: this.state.email,
 			phoneNumber: this.state.phoneNumber,
-			events: this.state.events
+			events: this.state.events,
+			adherent: this.state.adherent
 			}
 		AsyncStorage.setItem('user', JSON.stringify(obj));
 		alert('Coordonnées sauvegardées')
-	}
-		
-	displayData = async () => {
-		try {
-			let user = await AsyncStorage.getItem('user');
-			let parsed = JSON.parse(user);
-			alert(parsed.firstName + "\n" + parsed.lastName + "\n" + parsed.enterprise + "\n" + parsed.email + "\n" + parsed.phoneNumber)
-		} 
-		catch(error) {
-			console.log("Error data" + error)
-		}
-	} 	
+	}	
 	
   componentWillMount = async () => {
 		try {
@@ -73,7 +70,8 @@ export default class Parameters extends React.Component {
 				enterprise: parsed.enterprise,
 				email: parsed.email,
 				phoneNumber: parsed.phoneNumber,
-				events: parsed.events
+				events: parsed.events,
+				adherent: parsed.adherent
 			})
 		} 
 		catch(error) {
@@ -119,6 +117,15 @@ render() {
             onChangeText={(phoneNumber) => this.changePhoneNumber(phoneNumber)}
         />
         <FormValidationMessage></FormValidationMessage>  
+				<View style={{ flexDirection: 'row', marginBottom: 20}}>
+						<CheckBox
+								value={this.state.adherent}
+								onChange={() => this.changeAdherent()}
+						/>
+					 <Text style={{marginTop: 5}}>
+						 Adhérent CPME
+					 </Text>
+        </View>
         <ToggleSwitch
 						isOn={false}
 						onColor='#07A9B4'
@@ -130,9 +137,9 @@ render() {
 					this.setState({navigation: isOn})
 				) }
 				
-/////////////////////////////////////////////////////////////////
-//              REVOIR ONTOGGLE DES NOTIFICATIONS              //
-/////////////////////////////////////////////////////////////////			
+				/////////////////////////////////////////////////////////////////
+				//              REVOIR ONTOGGLE DES NOTIFICATIONS              //
+				/////////////////////////////////////////////////////////////////			
 
 				/>
         <View style={styles.parametersButton} >
@@ -158,10 +165,3 @@ const styles = StyleSheet.create({
 		marginBottom: 20
   }
 });
-
-//        <Button
-//          style={styles.parametersButton}
-//          raised
-//          onPress={this.displayData}
-//          icon={{name: 'cached'}}
-//          title='AFFICHAGE TEST' />
