@@ -18,7 +18,8 @@ export default class ItemEvent extends React.Component {
 					authentified: false,
 					status: '',
 					events: [],
-					inscrit: false
+					inscrit: false,
+					storage: ""
     }
 	
   componentDidMount() {
@@ -103,6 +104,13 @@ export default class ItemEvent extends React.Component {
         AsyncStorage.setItem('user', JSON.stringify(obj));
        alert('Inscription enregistrée');
     }
+	
+	componentWillReceiveProps(nextProps) {
+        if (nextProps.storage !== this.state.storage) {
+          this.setState({storage: this.props.storage });
+          this.isAuthentified();
+        }
+      }
 	
  render() {
 	 

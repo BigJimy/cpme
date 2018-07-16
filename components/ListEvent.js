@@ -70,6 +70,7 @@ export default class ListEvent extends React.Component {
 							 lieu_zip={zip}
 							 lieu_phone={phone}
 							 lieu_web={url}
+							 storage={this.props.status}
 					 /> );
 			 });
 

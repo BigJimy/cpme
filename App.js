@@ -27,7 +27,7 @@ class EventsScreen extends React.Component {
 			<ScrollView>
 				<View style={styles.mainContainer}>
            <Header />
-           <ListEvent />
+           <ListEvent status={Math.random()}/>
         </View>
 			</ScrollView>
         
