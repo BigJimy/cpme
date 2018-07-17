@@ -7,7 +7,6 @@ import ListEvent from './components/ListEvent';
 import Parameters from './components/Parameters';
 import { Feather } from '@expo/vector-icons';
 
-
 let authentified = false;
 
 class HomeScreen extends React.Component {

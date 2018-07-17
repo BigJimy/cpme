@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage, CheckBox, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, CheckBox, KeyboardAvoidingView, Alert } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -63,7 +63,10 @@ export default class Parameters extends React.Component {
 			checkbox: this.state.checkbox,
 			}
 		AsyncStorage.setItem('user', JSON.stringify(obj));
-		alert('Coordonnées sauvegardées')
+		Alert.alert(
+        'Mise à jour réussie',
+        'Vos coordonnées ont été sauvegardées.'
+      )
 		this.props.navigation('App');
 	}	
 	

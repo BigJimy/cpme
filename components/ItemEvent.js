@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image, AsyncStorage } from 'react-native';
+import { Modal, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, ScrollView, Dimensions, Image, AsyncStorage, Alert } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
@@ -105,7 +105,10 @@ export default class ItemEvent extends React.Component {
 						adherent: this.state.adherent
             }
         AsyncStorage.setItem('user', JSON.stringify(obj));
-       alert('Inscription enregistrée');
+				Alert.alert(
+        'Inscription enregistrée',
+        'Vous êtes maintenant inscrit à cet évènement.'
+      )
     }
 	
 	componentWillReceiveProps(nextProps) {
