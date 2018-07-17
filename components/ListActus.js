@@ -24,7 +24,6 @@ export default class ListActus extends React.Component {
 	 }
 	
 	refresh() {
-		console.log("bonjour")
 			axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/mycpme/v1/post`)
 			 .then((response) => {
 					 this.setState({ post: response.data})

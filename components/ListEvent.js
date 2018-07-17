@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native';
 import ItemEvent from './ItemEvent';
 import axios from 'axios';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 let name;
 let address;
@@ -23,7 +24,7 @@ export default class ListEvent extends React.Component {
 		componentWillMount () {
 			 axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/ee/v4.8.29/events?include=Datetime.DTT_EVT_start,Datetime.DTT_EVT_end,Venue.VNU_address,Venue.VNU_city,Venue.VNU_zip,Venue.VNU_phone,Venue.VNU_url,Venue.VNU_name,EVT_slug,EVT_name,EVT_ID,EVT_desc,EVT_created,%20featured_image_url`)
 				 .then((response) => {
-						 this.setState({ post: response.data, isLoading: false})
+						 this.setState({ post: response.data.reverse(), isLoading: false})
 					 })
 		 }
 
@@ -35,6 +36,13 @@ export default class ListEvent extends React.Component {
           </View>
         )
 			}
+		}
+
+		refresh() {
+			 axios.get(`http://cpme.codeursyonnais.fr/wordpress/wp-json/ee/v4.8.29/events?include=Datetime.DTT_EVT_start,Datetime.DTT_EVT_end,Venue.VNU_address,Venue.VNU_city,Venue.VNU_zip,Venue.VNU_phone,Venue.VNU_url,Venue.VNU_name,EVT_slug,EVT_name,EVT_ID,EVT_desc,EVT_created,%20featured_image_url`)
+				 .then((response) => {
+						 this.setState({ post: response.data })
+					 })	
 		}
 		 
 		 render() {
@@ -77,6 +85,12 @@ export default class ListEvent extends React.Component {
     return (
       <View style={styles.itemsContainer}>
          	<View style={styles.categoryContainer} >
+							<MaterialCommunityIcons 
+									style={styles.icon}
+									name="reload" size={32} 
+									color="whitesmoke"
+									onPress={() => {this.refresh()}}
+							/>
 							<Text style={styles.categoryName} >{this.state.type}</Text>
 					</View>
           {affichage}
@@ -117,4 +131,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
 		padding: 5,
   },
+	icon: {
+		position: 'absolute',
+		left: 5,
+		top: 3
+	}
 });
