@@ -96,6 +96,18 @@ render() {
        style={styles.parametersContainer}
        behavior="padding"
        >
+         
+         
+         
+         
+          <View style={styles.categoryContainer} >
+							<Text style={styles.categoryName} >Profil</Text>
+					</View>
+      
+      
+      
+      
+       
         <FormLabel>Prénom</FormLabel>
         <FormInput
             placeholder="Votre prénom"
@@ -178,5 +190,18 @@ const styles = StyleSheet.create({
   parametersButton: {
 		marginTop: 20,
 		marginBottom: 20
+  },
+	categoryContainer: {
+		zIndex: 1,
+		padding: 3,
+		alignItems: 'center',
+		width: '100%',
+    backgroundColor: '#21393F',
+  },
+  categoryName: {
+    textAlign: 'center', 
+    color: 'white',
+    fontSize: 18,
+		padding: 5,
   }
 });
