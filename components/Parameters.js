@@ -42,7 +42,7 @@ export default class Parameters extends React.Component {
   }  
 	
 	changeAdherent() {
-		if(this.state.adherent === 'non-adherent'){
+		if(!this.state.checkbox){
 			this.setState({
 				adherent: 'adherent', checkbox: true })
 		} else {
