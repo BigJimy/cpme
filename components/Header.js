@@ -73,11 +73,10 @@ export default class Header extends React.Component {
 							</View>
 						</ScrollView>
 					</Modal>
-
+           
             <Image
-              style={{width: 200, height: 50}}
               source={require('./logo.png')}
-              resizeMode="center"
+              resizeMode="cover"
             />
             <TouchableHighlight onPress={() => {this.setModalVisible(true)}}>
                 <Feather 
