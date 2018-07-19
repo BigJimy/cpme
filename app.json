@@ -1,5 +1,14 @@
 {
-  "expo": {
-    "sdkVersion": "27.0.0"
-  }
+   "expo": {
+    "name": "CPME 85",
+    "icon": "./components/logo-cpme-android.png",
+    "version": "1.0.0",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.arinfo.cpme85"
+    },
+    "android": {
+      "package": "com.arinfo.cpme85"
+    }
+   }
 }
