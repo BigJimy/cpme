@@ -98,7 +98,7 @@ class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color="#185265"/>
       </View>
     );
   }
@@ -156,6 +156,11 @@ export default createSwitchNavigator({
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+	container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

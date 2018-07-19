@@ -14,7 +14,6 @@ export default class Parameters extends React.Component {
           enterprise: '',
           email: '',
           phoneNumber: '',
-				  notification: false,
 					checkbox: false,
 					adherent: 'non-adherent',
 					events: []
@@ -153,22 +152,6 @@ render() {
 					 </Text>
         </View>
         
-        <ToggleSwitch
-						isOn={false}
-						onColor='#07A9B4'
-						offColor='gray'
-						label='Activer les notifications'
-						labelStyle={{color: 'black', fontWeight: '900', marginHorizontal: 50}}
-						size='small'
-						onToggle={ (isOn) => (
-					this.setState({navigation: isOn})
-				)}
-				
-				/////////////////////////////////////////////////////////////////
-				//              REVOIR ONTOGGLE DES NOTIFICATIONS              //
-				/////////////////////////////////////////////////////////////////			
-
-				/>
         <View style={styles.parametersButton} >
         	<Button
 						style={styles.parametersButton}
